@@ -1,0 +1,11 @@
+@import "~styles/_variables";
+@import "~styles/_mixins";
+
+.animated-text {
+  span{
+    letter-spacing: 0.1em;
+    display: inline-block;
+    white-space: pre;
+    opacity: 0;
+  }
+}
