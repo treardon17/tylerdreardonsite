@@ -15,6 +15,16 @@ class Hero extends Base {
     this.setupAnimation()
   }
 
+  get ticks() {
+    const numTicks = 8
+    const ticks = []
+    const rotateBy = 360 / (numTicks || 1)
+    for (let i = 0; i < numTicks; i += 1) {
+      ticks.push(<div key={`tick${i}`} data-ref="clockTick" className="clock-tick" style={{ transform: `translate3d(-50%, 0, 0) rotate(${rotateBy * i}deg)` }} />)
+    }
+    return ticks
+  }
+
   // Animations
   setupAnimation = () => {
     this.timeline = new TimelineLite({
@@ -24,6 +34,19 @@ class Hero extends Base {
       .add(this.animationText.timeline)
       .fromTo(this.refs.profile, 3, { y: 50, filter: 'blur(20px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
       .fromTo(this.refs.profileCut, 3, { y: 50, filter: 'blur(20px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      .add(this.getClockTicksTimeline())
+  }
+
+  getClockTicksTimeline() {
+    const ticks = this.refs.clockTick
+    const timeline = new TimelineLite()
+    const duration = 1
+    const subtract = `-=${duration * 0.95}`
+    for (let i = 0; i < ticks.length; i += 1) {
+      const tick = ticks[i]
+      timeline.fromTo(tick, duration, { width: 0, opacity: 0 }, { width: '120%', opacity: 1, ease: Power3.easeInOut }, subtract)
+    }
+    return timeline
   }
 
   animateNameClock(pause = 0) {
@@ -53,6 +76,9 @@ class Hero extends Base {
             <img data-ref="profileCut" className="hero__profile-cut" src={profileCutImage} />
           </div>
           <AnimatedText node={(ref) => { this.animationTextNode = ref }} ref={(ref) => { this.animationText = ref }} array={'hello, my name is tyler'.split('')} />
+          <div className="clock-ticks">
+            {this.ticks}
+          </div>
         </div>
       </div>
     )
