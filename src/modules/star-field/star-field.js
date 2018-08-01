@@ -59,8 +59,8 @@ class StarField extends Base {
       particle.size = particle.originalSize * percent
       // particle.xOffset = (((xDistance * proportion) * 2.5) - ((xDistance * percent) * 0.5))
       // particle.yOffset = (((yDistance * proportion) * 2.5) - ((yDistance * percent) * 0.5))
-      particle.xOffset = -((xDistance * percent) * 0.75)
-      particle.yOffset = -((yDistance * percent) * 0.75)
+      particle.xOffset = -((xDistance * percent) * 0.15)
+      particle.yOffset = -((yDistance * percent) * 0.15)
     }
   }
 
