@@ -18,6 +18,7 @@ class StarField extends Base {
     this.numRows = 35
     this.mouseParticle = new StarParticle({ canvas: this.canvas, ctx: this.ctx, x: 0, y: 0, size: 0 })
     this.createParticles()
+    this.setParticleSizesFromMousePosition()
   }
 
   setBinds() {

@@ -33,8 +33,9 @@ class Hero extends Base {
     })
     this.timeline
       .add(this.animationText.timeline)
-      .fromTo(this.refs.profile, 3, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
-      .fromTo(this.refs.profileCut, 3, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      .fromTo(this.refs.profile, 2, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      .fromTo(this.refs.profileCut, 2, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      .fromTo(this.starFieldNode, 1, { autoAlpha: 0 }, { autoAlpha: 1, ease: Power3.easeInOut })
       // .add(this.getClockTicksTimeline())
   }
 
@@ -71,7 +72,7 @@ class Hero extends Base {
   render() {
     return (
       <div className="hero">
-        <StarField width={AppState.browserWindow.width} height={AppState.browserWindow.height} />
+        <StarField node={ref => this.starFieldNode = ref} width={AppState.browserWindow.width} height={AppState.browserWindow.height} />
         <div data-ref="profileInner" className="hero__profile-inner">
           <div data-ref="profileContainer" className="hero__profile-container">
             <img data-ref="profile" className="hero__profile" src={profileImage} />
