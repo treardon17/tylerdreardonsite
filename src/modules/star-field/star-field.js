@@ -14,8 +14,8 @@ class StarField extends Base {
 
   setDefaults() {
     this.ctx = this.canvas.getContext('2d')
-    this.numColumns = 25
-    this.numRows = 25
+    this.numColumns = 35
+    this.numRows = 35
     this.mouseParticle = new StarParticle({ canvas: this.canvas, ctx: this.ctx, x: 0, y: 0, size: 0 })
     this.createParticles()
   }
@@ -38,7 +38,7 @@ class StarField extends Base {
       const yOffset = 1 / (this.numRows * 2)
       const xPercent = (currentColIndex / this.numColumns) + xOffset
       const yPercent = (currentRowIndex / this.numRows) - yOffset
-      const particle = new StarParticle({ canvas: this.canvas, ctx: this.ctx, xPercent, yPercent, color: 'rgba(255,255,255,0.5)' })
+      const particle = new StarParticle({ canvas: this.canvas, ctx: this.ctx, xPercent, yPercent, color: '#fd4445' })
       this.particles.push(particle)
       currentColIndex += 1
     }
@@ -51,12 +51,16 @@ class StarField extends Base {
       const xDistance = particle.xPos - this.mouseParticle.xPos
       const yDistance = particle.yPos - this.mouseParticle.yPos
       const distance = Math.sqrt((xDistance ** 2) + (yDistance ** 2))
+      // The closer you are, the smaller the proportion
       const proportion = (distance / maxDistance)
+      // Inverse of the proportion
       let percent = 1 - proportion
       if (percent < 0) percent = 0
       particle.size = particle.originalSize * percent
-      particle.xOffset = xDistance * proportion
-      particle.yOffset = yDistance * proportion
+      // particle.xOffset = (((xDistance * proportion) * 2.5) - ((xDistance * percent) * 0.5))
+      // particle.yOffset = (((yDistance * proportion) * 2.5) - ((yDistance * percent) * 0.5))
+      particle.xOffset = -((xDistance * percent) * 0.75)
+      particle.yOffset = -((yDistance * percent) * 0.75)
     }
   }
 

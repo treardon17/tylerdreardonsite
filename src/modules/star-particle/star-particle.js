@@ -1,7 +1,7 @@
 import './star-particle.scss'
 
 class StarParticle {
-  constructor({ canvas, ctx, x, y, xPercent, yPercent, xOffset = 0, yOffset = 0, size = 2, color = '#fff' }) {
+  constructor({ canvas, ctx, x, y, xPercent, yPercent, xOffset = 0, yOffset = 0, size = 3, color = '#fff' }) {
     this.canvas = canvas
     this.ctx = ctx
     this.xOffset = xOffset
