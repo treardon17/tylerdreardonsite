@@ -1,7 +1,32 @@
 import { observable, computed } from 'mobx'
 
 class AppState {
-  @observable user = { first_name: 'Alex', last_name: 'Marmon', phone: '0123456789' };
+  @observable browserWindow = { ...this.windowSpecs }
+
+  constructor() {
+    this.setBinds()
+  }
+
+  get windowSpecs() {
+    const width = window.innerWidth
+    const height = window.innerHeight
+    return {
+      width,
+      height,
+      widthPx: `${width}px`,
+      heightPx: `${height}px`,
+    }
+  }
+
+  setBinds() {
+    window.addEventListener('resize', this.windowResize.bind(this))
+  }
+
+  windowResize() {
+    this.browserWindow = {
+      ...this.windowSpecs
+    }
+  }
 
   fetchData(query) {
     fetch(query).then(response => response.json())
@@ -16,4 +41,4 @@ class AppState {
   }
 }
 
-export default AppState
+export default new AppState()

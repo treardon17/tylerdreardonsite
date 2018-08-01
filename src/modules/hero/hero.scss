@@ -11,9 +11,10 @@
     transform: translate3d(-50%, -50%, 0);
     text-align: left;
     padding: 4em;
+    pointer-events: none;
   }
   &__profile-container{
-    $width: 30em;
+    $width: 20em;
     width: $width;
     height: $width;
     position: relative;
@@ -36,22 +37,27 @@
   }
 
   .animated-text{
-    z-index: 1;
     color: $white;
     position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+    width: 100%;
+    text-align: center;
+    left: 50%; top: 5%;
+    transform: translate3d(-50%, 0%, 0);
     margin: auto;
     height: 1em;
   }
+
   .clock-ticks{
     position: absolute;
     top: 0; bottom: 0; right: 0; left: 0;
   }
+
   .clock-tick{
     position: absolute;
     top: 0; bottom: 0;
     left: 50%;
-    width: 120%;
+    transform: translate3d(-50%, 0, 0);
+    width: 105%;
     height: 1em;
     margin: auto;
 
@@ -59,7 +65,7 @@
       content: '';
       display: block;
       position: absolute;
-      width: 3em;
+      width: 1em;
       height: 1px;
       background-color: $white;
       top: 0; bottom: 0;

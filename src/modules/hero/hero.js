@@ -3,11 +3,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Base from '../module-base'
 import AnimatedText from '../animated-text/animated-text'
+import AppState from '../../state/AppState'
+import StarField from '../star-field/star-field'
 import './hero.scss'
 
 const profileImage = require('../../assets/img/hero/profile.jpg')
 const profileCutImage = require('../../assets/img/hero/profile-cut.png')
-
 
 class Hero extends Base {
   componentDidMount() {
@@ -28,13 +29,13 @@ class Hero extends Base {
   // Animations
   setupAnimation = () => {
     this.timeline = new TimelineLite({
-      onComplete: this.animateNameClock.bind(this, 2000)
+      // onComplete: this.animateNameClock.bind(this, 2000)
     })
     this.timeline
       .add(this.animationText.timeline)
-      .fromTo(this.refs.profile, 3, { y: 50, filter: 'blur(20px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
-      .fromTo(this.refs.profileCut, 3, { y: 50, filter: 'blur(20px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
-      .add(this.getClockTicksTimeline())
+      .fromTo(this.refs.profile, 3, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      .fromTo(this.refs.profileCut, 3, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      // .add(this.getClockTicksTimeline())
   }
 
   getClockTicksTimeline() {
@@ -70,15 +71,16 @@ class Hero extends Base {
   render() {
     return (
       <div className="hero">
+        <StarField width={AppState.browserWindow.width} height={AppState.browserWindow.height} />
         <div data-ref="profileInner" className="hero__profile-inner">
           <div data-ref="profileContainer" className="hero__profile-container">
             <img data-ref="profile" className="hero__profile" src={profileImage} />
             <img data-ref="profileCut" className="hero__profile-cut" src={profileCutImage} />
           </div>
           <AnimatedText node={(ref) => { this.animationTextNode = ref }} ref={(ref) => { this.animationText = ref }} array={'hello, my name is tyler'.split('')} />
-          <div className="clock-ticks">
+          {/* <div className="clock-ticks">
             {this.ticks}
-          </div>
+          </div> */}
         </div>
       </div>
     )
