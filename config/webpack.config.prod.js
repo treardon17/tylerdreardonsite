@@ -1,10 +1,10 @@
-const path = require('path');
-const webpack = require('webpack');
-const Merge = require('webpack-merge');
+const path = require('path')
+const webpack = require('webpack')
+const Merge = require('webpack-merge')
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CommonConfig = require('./webpack.config.common.js');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CommonConfig = require('./webpack.config.common.js')
 
 // use smart strategy to force replacement
 // of the following configs
@@ -119,10 +119,10 @@ const config = Merge.smartStrategy({
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css"
+      filename: '[name].css',
+      chunkFilename: '[id].css'
     })
   ],
-});
+})
 
-module.exports = config;
+module.exports = config

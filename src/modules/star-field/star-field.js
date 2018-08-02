@@ -39,7 +39,7 @@ class StarField extends Base {
       const yOffset = 1 / (this.numRows * 2)
       const xPercent = (currentColIndex / this.numColumns) + xOffset
       const yPercent = (currentRowIndex / this.numRows) - yOffset
-      const particle = new StarParticle({ canvas: this.canvas, ctx: this.ctx, xPercent, yPercent, color: '#fd4445' })
+      const particle = new StarParticle({ canvas: this.canvas, ctx: this.ctx, xPercent, yPercent, color: '#146e85' })
       this.particles.push(particle)
       currentColIndex += 1
     }
