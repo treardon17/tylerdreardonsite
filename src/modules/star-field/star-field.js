@@ -1,3 +1,4 @@
+import { Power2, Back, TweenMax } from 'gsap'
 import React from 'react'
 import Base from '../module-base'
 import StarParticle from '../star-particle/star-particle'
@@ -10,10 +11,13 @@ class StarField extends Base {
     this.setDefaults()
     this.setBinds()
     this.draw()
+    this.animateBackground()
   }
 
   setDefaults() {
     this.ctx = this.canvas.getContext('2d')
+    this.canvasHovering = false
+    this.canvasHoverTimeout = null
     this.numColumns = 35
     this.numRows = 35
     this.mouseParticle = new StarParticle({ canvas: this.canvas, ctx: this.ctx, x: 0, y: 0, size: 0 })
@@ -23,6 +27,7 @@ class StarField extends Base {
 
   setBinds() {
     this.canvas.addEventListener('mousemove', this.canvasHover.bind(this))
+    this.canvas.addEventListener('touchmove', this.canvasHover.bind(this))
   }
 
   createParticles() {
@@ -45,13 +50,19 @@ class StarField extends Base {
     }
   }
 
+  getDistance({ x1, y1, x2, y2 }) {
+    const xDistance = x1 - x2
+    const yDistance = y1 - y2
+    return Math.sqrt((xDistance ** 2) + (yDistance ** 2))
+  }
+
   setParticleSizesFromMousePosition() {
     const maxDistance = this.props.width > this.props.height ? this.props.width : this.props.height
     for (let i = 0; i < this.particles.length; i += 1) {
       const particle = this.particles[i]
       const xDistance = particle.xPos - this.mouseParticle.xPos
       const yDistance = particle.yPos - this.mouseParticle.yPos
-      const distance = Math.sqrt((xDistance ** 2) + (yDistance ** 2))
+      const distance = this.getDistance({ x1: particle.xPos, x2: this.mouseParticle.xPos, y1: particle.yPos, y2: this.mouseParticle.yPos })
       // The closer you are, the smaller the proportion
       const proportion = (distance / maxDistance)
       // Inverse of the proportion
@@ -65,13 +76,61 @@ class StarField extends Base {
     }
   }
 
+  animateBackground() {
+    const x = Math.floor(Math.random() * this.props.width)
+    const y = Math.floor(Math.random() * this.props.height)
+    const distance = this.getDistance({ x1: x, x2: this.mouseParticle.xPos, y1: y, y2: this.mouseParticle.yPos })
+    const duration = distance / 100
+    this.bgAnimationTween = this.animateBackgroundParticles({
+      x,
+      y,
+      duration,
+      callback: () => {
+        this.animateBackground()
+      }
+    })
+  }
+
+  cancelAnimateBackground() {
+    if (this.bgAnimationTween) {
+      this.bgAnimationTween.kill()
+      this.bgAnimationTween = null
+    }
+  }
+
+  animateBackgroundParticles({ x, y, duration = 0.035, callback }) {
+    const obj = { x: this.mouseParticle.x, y: this.mouseParticle.y }
+    return TweenMax.to(obj, duration, {
+      x,
+      y,
+      ease: Power2.easeInOut,
+      onUpdate: () => {
+        this.mouseParticle.x = obj.x
+        this.mouseParticle.y = obj.y
+        this.setParticleSizesFromMousePosition()
+      },
+      onComplete: () => {
+        if (typeof callback === 'function') {
+          callback()
+        }
+      }
+    })
+  }
+
   canvasHover(e) {
     const rect = e.target.getBoundingClientRect()
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
-    this.mouseParticle.x = x
-    this.mouseParticle.y = y
 
+    this.cancelAnimateBackground()
+    clearTimeout(this.canvasHoverTimeout)
+    this.canvasHovering = true
+    this.canvasHoverTimeout = setTimeout(() => {
+      this.canvasHovering = false
+      this.animateBackground()
+    }, 1000)
+
+    this.animateBackgroundParticles({ x, y })
     this.setParticleSizesFromMousePosition()
   }
 

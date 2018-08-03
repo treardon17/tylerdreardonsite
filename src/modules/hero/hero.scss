@@ -6,8 +6,10 @@
   width: 100vw;
   background-color: $dark-grey;
   background: linear-gradient(to right, $blue1, $blue2);
+  overflow: hidden;
   &__profile-inner{
     position: absolute;
+    max-width: 90%;
     top: 50%; left: 50%;
     transform: translate3d(-50%, -50%, 0);
     text-align: left;
@@ -15,9 +17,9 @@
     pointer-events: none;
   }
   &__profile-container{
-    $width: 20em;
-    width: $width;
-    height: $width;
+    width: 20em;
+    max-width: 100%;
+    padding-top: 100%;
     position: relative;
     display: flex;
     justify-content: center;

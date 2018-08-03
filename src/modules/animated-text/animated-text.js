@@ -34,7 +34,7 @@ class AnimatedText extends Base {
     this.timeline = new TimelineLite()
     for (let i = 0; i < this.refs.text.length; i += 1) {
       const ref = this.refs.text[i]
-      const time = 1
+      const time = 0.5
       const subtract = `-=${time * 0.9}`
       this.timeline.fromTo(ref, time, { y: -10, opacity: 0 }, { y: 0, opacity: 1, ease: Sine.easeInOut }, subtract)
     }
