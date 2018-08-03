@@ -8,7 +8,7 @@ import StarField from '../star-field/star-field'
 import './hero.scss'
 
 const profileImage = require('../../assets/img/hero/profile.jpg')
-const profileCutImage = require('../../assets/img/hero/profile-cut.png')
+// const profileCutImage = require('../../assets/img/hero/profile-cut.png')
 
 class Hero extends Base {
   componentDidMount() {

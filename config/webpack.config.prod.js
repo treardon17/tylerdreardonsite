@@ -80,6 +80,11 @@ const config = Merge.smartStrategy({
         use: 'file-loader?name=fonts/[name].[ext]',
         include: path.resolve('./src'),
       },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        include: path.resolve('./src'),
+        loader: 'file-loader?name=/img/[name]-[hash].[ext]'
+      }
     ],
   },
 
@@ -87,7 +92,7 @@ const config = Merge.smartStrategy({
   output: {
     publicPath: path.resolve('/assets/'),
     filename: '[name].js',
-    path: path.resolve('./prod/assets'),
+    path: path.resolve('./prod/assets/'),
   },
 
   // fastest for production
