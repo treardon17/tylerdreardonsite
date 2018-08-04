@@ -77,24 +77,42 @@ class StarField extends Base {
   }
 
   animateBackground() {
+    this.animateBackgroundX()
+    this.animateBackgroundY()
+  }
+
+  animateBackgroundX() {
     const x = Math.floor(Math.random() * this.props.width)
-    const y = Math.floor(Math.random() * this.props.height)
-    const distance = this.getDistance({ x1: x, x2: this.mouseParticle.xPos, y1: y, y2: this.mouseParticle.yPos })
-    const duration = distance / 100
-    this.bgAnimationTween = this.animateBackgroundParticles({
+    const duration = (Math.random() * 5) + 2
+    this.bgAnimationTweenX = this.animateBackgroundParticles({
       x,
+      duration,
+      callback: () => {
+        this.animateBackgroundX()
+      }
+    })
+  }
+
+  animateBackgroundY() {
+    const y = Math.floor(Math.random() * this.props.height)
+    const duration = (Math.random() * 5) + 2
+    this.bgAnimationTweenY = this.animateBackgroundParticles({
       y,
       duration,
       callback: () => {
-        this.animateBackground()
+        this.animateBackgroundY()
       }
     })
   }
 
   cancelAnimateBackground() {
-    if (this.bgAnimationTween) {
-      this.bgAnimationTween.kill()
-      this.bgAnimationTween = null
+    if (this.bgAnimationTweenX) {
+      this.bgAnimationTweenX.kill()
+      this.bgAnimationTweenX = null
+    }
+    if (this.bgAnimationTweenY) {
+      this.bgAnimationTweenY.kill()
+      this.bgAnimationTweenY = null
     }
   }
 
@@ -105,9 +123,8 @@ class StarField extends Base {
       y,
       ease: Power2.easeInOut,
       onUpdate: () => {
-        this.mouseParticle.x = obj.x
-        this.mouseParticle.y = obj.y
-        this.setParticleSizesFromMousePosition()
+        if (x != null) { this.mouseParticle.x = obj.x }
+        if (y != null) { this.mouseParticle.y = obj.y }
       },
       onComplete: () => {
         if (typeof callback === 'function') {
@@ -131,7 +148,6 @@ class StarField extends Base {
     }, 1000)
 
     this.animateBackgroundParticles({ x, y })
-    this.setParticleSizesFromMousePosition()
   }
 
   drawBackground() {
@@ -154,6 +170,7 @@ class StarField extends Base {
       // this.drawBackground()
       this.drawParticles()
       this.mouseParticle.draw()
+      this.setParticleSizesFromMousePosition()
     }
     requestAnimationFrame(this.draw.bind(this))
   }
