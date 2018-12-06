@@ -1,11 +1,11 @@
 import React from 'react'
+import SVG from 'react-inlinesvg'
 import Base from '../module-base'
 import './index.scss'
 
-import Facebook from '../../assets/icon/social/facebook.svg'
-import LinkedIn from '../../assets/icon/social/linkedin.svg'
-import GitHub from '../../assets/icon/social/github.svg'
-import Folder from '../../assets/icon/social/folder.svg'
+// import LinkedIn from '../../assets/icon/social/linkedin.svg'
+// import GitHub from '../../assets/icon/social/github.svg'
+// import Folder from '../../assets/icon/social/folder.svg'
 
 export default class Template extends Base {
   componentDidMount() {
@@ -24,21 +24,21 @@ export default class Template extends Base {
           target="_blank"
           href="https://www.linkedin.com/in/tyler-reardon-55417429/"
         >
-          <LinkedIn />
+          <SVG src="/assets/icon/social/linkedin.svg" />
         </a>
         <a
           className="icon"
           target="_blank"
           href="https://github.com/treardon17"
         >
-          <GitHub />
+          <SVG src="/assets/icon/social/github.svg" />
         </a>
         <a
           className="icon"
           href="/assets/downloads/Resume-TylerReardon-12-5-18.pdf"
           download
         >
-          <Folder />
+          <SVG src="/assets/icon/social/folder.svg" />
         </a>
       </div>
     )

@@ -1,7 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const Merge = require('webpack-merge')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CommonConfig = require('./webpack.config.common.js')
@@ -100,6 +101,10 @@ const config = Merge.smartStrategy({
   devtool: 'cheap-source-map',
 
   plugins: [
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, '../src/assets'),
+      to: './'
+    }]),
     // create global constants
     // new webpack.DefinePlugin({
     //   'process.env': {

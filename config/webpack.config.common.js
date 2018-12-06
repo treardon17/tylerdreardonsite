@@ -65,7 +65,7 @@ const config = {
         include: path.resolve('./src'),
       },
       {
-        test: /\.(gif|png|jpe?g)$/i,
+        test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
           'file-loader',
           {
@@ -77,16 +77,6 @@ const config = {
           },
         ],
       },
-      {
-        test: /\.svg$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'svg-react-loader',
-          options: {
-            tag: 'svg'
-          },
-        },
-      }
     ],
   },
 
