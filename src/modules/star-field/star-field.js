@@ -1,4 +1,4 @@
-import { Power2, Back, TweenMax } from 'gsap'
+import { Power2, Linear, TweenMax } from 'gsap'
 import React from 'react'
 import Base from '../module-base'
 import StarParticle from '../star-particle/star-particle'
@@ -86,6 +86,7 @@ class StarField extends Base {
     const duration = (Math.random() * 5) + 2
     this.bgAnimationTweenX = this.animateBackgroundParticles({
       x,
+      ease: Linear.easeNone,
       duration,
       callback: () => {
         this.animateBackgroundX()
@@ -98,6 +99,7 @@ class StarField extends Base {
     const duration = (Math.random() * 5) + 2
     this.bgAnimationTweenY = this.animateBackgroundParticles({
       y,
+      ease: Linear.easeNone,
       duration,
       callback: () => {
         this.animateBackgroundY()
@@ -116,12 +118,12 @@ class StarField extends Base {
     }
   }
 
-  animateBackgroundParticles({ x, y, duration = 0.035, callback }) {
+  animateBackgroundParticles({ x, y, duration = 0.035, callback, ease = Power2.easeInOut }) {
     const obj = { x: this.mouseParticle.x, y: this.mouseParticle.y }
     return TweenMax.to(obj, duration, {
       x,
       y,
-      ease: Power2.easeInOut,
+      ease,
       onUpdate: () => {
         if (x != null) { this.mouseParticle.x = obj.x }
         if (y != null) { this.mouseParticle.y = obj.y }

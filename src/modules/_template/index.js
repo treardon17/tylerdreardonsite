@@ -1,9 +1,9 @@
 import React from 'react'
 import Base from '../module-base'
-import './template.scss'
+import './index.scss'
 
 
-class Template extends Base {
+export default class Template extends Base {
   componentDidMount() {
     super.componentDidMount()
     this.setDefaults()
@@ -14,5 +14,3 @@ class Template extends Base {
   setBinds() {}
   render() {}
 }
-
-export default Template

@@ -1,4 +1,4 @@
-import { TimelineLite, Sine } from 'gsap'
+import { TimelineLite, Back as Easing } from 'gsap'
 import React from 'react'
 import Base from '../module-base'
 import './animated-text.scss'
@@ -36,7 +36,7 @@ class AnimatedText extends Base {
       const ref = this.refs.text[i]
       const time = 0.5
       const subtract = `-=${time * 0.9}`
-      this.timeline.fromTo(ref, time, { y: -10, opacity: 0 }, { y: 0, opacity: 1, ease: Sine.easeInOut }, subtract)
+      this.timeline.fromTo(ref, time, { x: 10, opacity: 0 }, { x: 0, opacity: 1, ease: Easing.easeInOut }, subtract)
     }
   }
 

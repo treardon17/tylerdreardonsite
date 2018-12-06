@@ -30,7 +30,8 @@ module.exports = {
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/media-has-caption": 0,
     "no-nested-ternary": 0,
-    "no-return-assign": 0
+    "no-return-assign": 0,
+    "react/jsx-no-target-blank": 0
   },
   "env": {
     "browser": true,

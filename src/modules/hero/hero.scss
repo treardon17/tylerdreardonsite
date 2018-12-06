@@ -7,13 +7,15 @@
   background-color: $dark-grey;
   background: linear-gradient(to right, $blue1, $blue2);
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; 
   &__profile-inner{
-    position: absolute;
+    position: relative;
     max-width: 90%;
-    top: 50%; left: 50%;
-    transform: translate3d(-50%, -50%, 0);
     text-align: left;
-    padding: 4em;
+    padding: 1em;
     pointer-events: none;
   }
   &__profile-container{
@@ -39,16 +41,25 @@
     z-index: 2;
   }
 
+  .star-field{
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0;
+  }
+
+  .social{
+    position: relative;
+    width: 150px;
+  }
+
   .animated-text{
     color: $white;
-    position: absolute;
     width: 100%;
     text-align: center;
-    left: 50%; top: 5%;
-    transform: translate3d(-50%, 0%, 0);
     margin: auto;
     height: 1em;
+    margin-bottom: 2em;
     font-weight: 900;
+    pointer-events: none;
   }
 
   .clock-ticks{

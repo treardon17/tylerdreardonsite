@@ -3,6 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Base from '../module-base'
 import AnimatedText from '../animated-text/animated-text'
+import Social from '../../modules/social'
 import AppState from '../../state/AppState'
 import StarField from '../star-field/star-field'
 import './hero.scss'
@@ -31,10 +32,13 @@ class Hero extends Base {
     this.timeline = new TimelineLite({
       // onComplete: this.animateNameClock.bind(this, 2000)
     })
+    const offsetY = 50
     this.timeline
       .add(this.animationText.timeline)
-      .fromTo(this.refs.profile, 2, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      .staggerFromTo([this.refs.profile, this.socialNode.node], 1, { y: offsetY, autoAlpha: 0, }, { y: 0, autoAlpha: 1, ease: Power3.easeInOut }, 0.1)
+      // .fromTo(this.refs.profile, 2, { y: offsetY, autoAlpha: 0, filter: 'blur(30px)' }, { y: 0, autoAlpha: 1, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
       // .fromTo(this.refs.profileCut, 2, { y: 50, filter: 'blur(30px)' }, { y: 0, filter: 'blur(0)', ease: Power3.easeInOut }, 'profile')
+      // .fromTo(this.socialNode.node, 1, { y: offsetY, autoAlpha: 0 }, { y: 0, autoAlpha: 1, ease: Power3.easeInOut })
       .fromTo(this.starFieldNode, 1, { autoAlpha: 0 }, { autoAlpha: 1, ease: Power3.easeInOut })
       // .add(this.getClockTicksTimeline())
   }
@@ -74,15 +78,16 @@ class Hero extends Base {
       <div className="hero">
         <StarField node={ref => this.starFieldNode = ref} width={AppState.browserWindow.width} height={AppState.browserWindow.height} />
         <div data-ref="profileInner" className="hero__profile-inner">
+          <AnimatedText node={(ref) => { this.animationTextNode = ref }} ref={(ref) => { this.animationText = ref }} array={'hello, my name is tyler'.split('')} />
           <div data-ref="profileContainer" className="hero__profile-container">
             <img data-ref="profile" className="hero__profile" src={profileImage} />
             {/* <img data-ref="profileCut" className="hero__profile-cut" src={profileCutImage} /> */}
           </div>
-          <AnimatedText node={(ref) => { this.animationTextNode = ref }} ref={(ref) => { this.animationText = ref }} array={'hello, my name is tyler'.split('')} />
           {/* <div className="clock-ticks">
             {this.ticks}
           </div> */}
         </div>
+        <Social ref={ref => this.socialNode = ref} />
       </div>
     )
   }

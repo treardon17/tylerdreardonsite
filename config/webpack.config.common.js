@@ -28,6 +28,7 @@ const config = {
     extensions: ['.js', '.jsx'],
     // alias styles, modules, and state
     alias: {
+      '@': path.resolve('src'),
       styles: path.resolve('src/styles/'),
       modules: path.resolve('src/modules/'),
       state: path.resolve('src/state'),
@@ -64,7 +65,7 @@ const config = {
         include: path.resolve('./src'),
       },
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
+        test: /\.(gif|png|jpe?g)$/i,
         use: [
           'file-loader',
           {
@@ -75,6 +76,16 @@ const config = {
             },
           },
         ],
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'svg-react-loader',
+          options: {
+            tag: 'svg'
+          },
+        },
       }
     ],
   },
